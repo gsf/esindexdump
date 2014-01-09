@@ -1,0 +1,7 @@
+{
+  "name": "esindexdump",
+  "version": "0.0.0",
+  "description": "command line tool to dump elasticsearch indexes",
+  "main": "index.js",
+  "license": "ISC"
+}
