@@ -3,6 +3,7 @@
 A command line tool for dumping out an elasticsearch index in a format 
 suitable for bulk (re)indexing.
 
+
 ## Example
 
 ```
@@ -18,4 +19,11 @@ $ esindexdump 'http://localhost:9200/twitter' > tweets.dump
 $ curl -XPOST 'http://localhost:9200/twitter2' --data-binary @tweets.dump
 {"index":{"_index":"twitter2","_type":"tweet","_id":"3","_version":1,"ok":true}},{"ind...
 $
+```
+
+
+## Install
+
+```
+npm install -g esindexdump
 ```
