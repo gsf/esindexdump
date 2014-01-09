@@ -2,6 +2,7 @@
   "name": "esindexdump",
   "version": "0.0.0",
   "description": "command line tool to dump elasticsearch indexes",
-  "main": "index.js",
+  "bin": "index.js",
+  "repository": "git://github.com/gsf/esindexdump.git",
   "license": "ISC"
 }
