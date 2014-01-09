@@ -16,7 +16,9 @@ http.request(u, function (res) {
   var data = ''
   res.on('data', function (chunk) {data += chunk})
   res.on('end', function () {
-    scrollId = JSON.parse(data)._scroll_id
+    var result = JSON.parse(data)
+    if (result.error) throw Error(result.error)
+    scrollId = result._scroll_id
     scrollU.headers['Content-Length'] = Buffer.byteLength(scrollId)
     scroll()
   })
