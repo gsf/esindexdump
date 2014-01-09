@@ -1,5 +1,7 @@
+#!/usr/bin/env node
 var http = require('http')
 var url = require('url')
+
 
 var u = url.parse(process.argv[2])
 var scrollU = url.parse(process.argv[2])
