@@ -1,7 +1,7 @@
 # esindexdump
 
-A command line tool for dumping out an elasticsearch index in a format 
-suitable for bulk (re)indexing.
+This is a command line tool that scrolls through records in an elasticsearch 
+index and streams them out in a format suitable for bulk (re)indexing.
 
 
 [![NPM](https://nodei.co/npm/esindexdump.png)](https://nodei.co/npm/esindexdump/)
