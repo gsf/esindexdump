@@ -3,6 +3,8 @@
 A command line tool for dumping out an elasticsearch index in a format 
 suitable for bulk (re)indexing.
 
+[![NPM](https://nodei.co/npm/esindexdump.png)](https://nodei.co/npm/esindexdump/)
+
 
 ## Example
 
