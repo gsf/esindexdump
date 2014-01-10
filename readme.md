@@ -28,5 +28,5 @@ $ esindexdump http://localhost:9200/twitter | gzip > tweets.ldj.gz
 $ # if http.compression is set to true in your elasticsearch config
 $ curl -XPOST -H 'Content-Encoding: gzip' http://localhost:9200/twitter2/_bulk --data-binary @tweets.ldj.gz
 {"index":{"_index":"twitter2","_type":"tweet","_id":"3","_version":1,"ok":true}},{"index":...
-$
+$ 
 ```
