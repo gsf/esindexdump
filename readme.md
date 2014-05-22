@@ -22,7 +22,7 @@ $ esindexdump http://localhost:9200/twitter
 ...
 $ # ldj file extension for line-delimited json
 $ esindexdump http://localhost:9200/twitter > tweets.ldj
-$ curl -XPOST http://localhost:9200/twitter2/_bulk --data-binary @tweets.dump
+$ curl -XPOST http://localhost:9200/twitter2/_bulk --data-binary @tweets.ldj
 {"index":{"_index":"twitter2","_type":"tweet","_id":"3","_version":1,"ok":true}},{"index":...
 $ esindexdump http://localhost:9200/twitter | gzip > tweets.ldj.gz
 $ # if http.compression is set to true in your elasticsearch config
