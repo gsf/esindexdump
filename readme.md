@@ -4,11 +4,6 @@ This is a command line tool that scrolls through records in an elasticsearch
 index and streams them out in a format suitable for bulk (re)indexing.
 
 
-[![NPM](https://nodei.co/npm/esindexdump.png)](https://nodei.co/npm/esindexdump/)
-
-
-## Example
-
 ```sh
 $ sudo npm install -g esindexdump
 ...
