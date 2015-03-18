@@ -3,7 +3,6 @@
 This is a command line tool that scrolls through records in an elasticsearch 
 index and streams them out in a format suitable for bulk (re)indexing.
 
-
 ```sh
 $ sudo npm install -g esindexdump
 ...
@@ -24,4 +23,18 @@ $ # if http.compression is set to true in your elasticsearch config
 $ curl -XPOST -H 'Content-Encoding: gzip' http://localhost:9200/twitter2/_bulk --data-binary @tweets.ldj.gz
 {"index":{"_index":"twitter2","_type":"tweet","_id":"3","_version":1,"ok":true}},{"index":...
 $ 
+```
+
+Now with an API for updating documents with a map/filter.
+
+```js
+var dump = require('esindexdump')
+
+// Only dump docs of type "tweet", and set user on all to "alice"
+dump(function (doc) {
+  if (doc._type === 'tweet') {
+    doc._source.user = 'alice'
+    return doc
+  }
+})
 ```
