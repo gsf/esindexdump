@@ -1,6 +1,6 @@
 {
   "name": "esindexdump",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "command line tool to dump elasticsearch indexes",
   "bin": "index.js",
   "main": "index.js",
