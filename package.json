@@ -1,9 +1,12 @@
 {
   "name": "esindexdump",
   "version": "0.1.0",
-  "description": "command line tool to dump elasticsearch indexes",
+  "description": "command line tool to dump an elasticsearch index",
   "bin": "index.js",
   "main": "index.js",
   "repository": "git://github.com/gsf/esindexdump.git",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "elasticsearch-doc-stream": "^1.0.0"
+  }
 }

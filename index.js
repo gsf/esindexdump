@@ -1,57 +1,40 @@
 #!/usr/bin/env node
-var http = require('http')
-var url = require('url')
 
-function dump (cb) {
-  var u = url.parse(process.argv[2])
-  var scrollU = url.parse(process.argv[2])
-  var scrollId;
+var docStream = require('elasticsearch-doc-stream')
 
-  u.path = u.path + '/_search?search_type=scan&scroll=10m&size=50'
+function dump (opt, cb) {
+  var d = docStream({
+    url: opt.url,
+    search: {
+      query: {
+        match_all: {}
+      }
+    }
+  });
 
-  scrollU.headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-  scrollU.path = '/_search/scroll?scroll=10m'
+  d.on('data', function (doc) {
+    doc = cb(null, doc)
+    if (!doc) return
+    opt.out.write(JSON.stringify({
+      index: {
+        _type: doc._type,
+        _id: doc._id
+      }
+    }) + '\n')
+    opt.out.write(JSON.stringify(doc._source) + '\n')
+  });
 
-  http.request(u, function (res) {
-    var data = ''
-    res.on('data', function (chunk) {data += chunk})
-    res.on('end', function () {
-      var result = JSON.parse(data)
-      if (result.error) throw Error(result.error)
-      scrollId = result._scroll_id
-      scrollU.headers['Content-Length'] = Buffer.byteLength(scrollId)
-      scroll()
-    })
-  }).on('error', function (e) {
-    throw e
-  }).end('{"query":{"match_all":{}}}')
-
-  function scroll () {
-    http.request(scrollU, function (res) {
-      var data = ''
-      res.on('data', function (chunk) {data += chunk})
-      res.on('end', function () {
-        var result = JSON.parse(data)
-        if (!result.hits.hits.length) return
-        result.hits.hits.forEach(function (doc) {
-          if (cb) doc = cb(doc)
-          if (!doc) return
-          console.log(JSON.stringify({
-            index: {
-              _type: doc._type,
-              _id: doc._id
-            }
-          }))
-          console.log(JSON.stringify(doc._source))
-        })
-        scroll()
-      })
-    }).on('error', function (e) {
-      throw e
-    }).end(scrollId)
-  }
+  d.on('error', function (err) {
+    cb(err);
+  });
 }
 
 module.exports = dump
 
-if (require.main === module) dump()
+if (require.main === module) dump({
+  url: process.argv[2],
+  out: process.stdout
+}, function (err, doc) {
+  if (err) return console.error(err)
+  return doc
+})

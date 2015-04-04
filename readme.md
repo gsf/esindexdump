@@ -31,7 +31,11 @@ Now with an API for updating documents with a map/filter.
 var dump = require('esindexdump')
 
 // Only dump docs of type "tweet", and set user on all to "alice"
-dump(function (doc) {
+dump({
+  url: 'http://localhost:9200/test,
+  out: process.stdout
+}, function (err, doc) {
+  if (err) return console.error(err)
   if (doc._type === 'tweet') {
     doc._source.user = 'alice'
     return doc
